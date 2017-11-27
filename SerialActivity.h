@@ -11,10 +11,10 @@ public:
     static constexpr int MaxOutgoingSize = 256;
     SerialType Port;
 
-	SerialActivity()
+    SerialActivity()
         : IncomingBufferSize(0)
-		, OutgoingBufferSize(0)
-	{}
+        , OutgoingBufferSize(0)
+    {}
 
     void OnReceived(const AW::StringBuf& buf) {
         static_cast<DerivedType*>(this)->OnSerialReceived(buf);
@@ -24,14 +24,14 @@ public:
     }
     
     void OnLoop(const ActivityContext&) {
-	    int incomingSize = MaxIncomingSize - IncomingBufferSize;
-		if (incomingSize > 0) {
-			int availableForRead = Port.AvailableForRead();
-			int size = incomingSize > availableForRead ? availableForRead : incomingSize;
-			if (size > 0) {
+        int incomingSize = MaxIncomingSize - IncomingBufferSize;
+        if (incomingSize > 0) {
+            int availableForRead = Port.AvailableForRead();
+            int size = incomingSize > availableForRead ? availableForRead : incomingSize;
+            if (size > 0) {
                 int strStart = 0;
                 int bufferPos = IncomingBufferSize;
-				size = Port.readBytes(&IncomingBuffer[IncomingBufferSize], size);
+                size = Port.readBytes(&IncomingBuffer[IncomingBufferSize], size);
                 IncomingBufferSize += size;
                 while (bufferPos < IncomingBufferSize) {
                     if (IncomingBuffer[bufferPos] == '\n') {
@@ -48,7 +48,7 @@ public:
                 if (IncomingBufferSize > 0) {
                     memmove(IncomingBuffer, &IncomingBuffer[strStart], IncomingBufferSize);
                 }
-		    }
+            }
         }
         if (OutgoingBufferSize > 0) {
             int availableForWrite = Port.AvailableForWrite();
@@ -61,7 +61,7 @@ public:
                 }
             }
         }
-	}
+    }
 
     void send(const AW::StringBuf& str) {
         AW::StringBuf s(str);
@@ -85,10 +85,10 @@ public:
     }
 
 protected:
-	char IncomingBuffer[MaxIncomingSize];
-	char OutgoingBuffer[MaxOutgoingSize];
-	int IncomingBufferSize;
-	int OutgoingBufferSize;
+    char IncomingBuffer[MaxIncomingSize];
+    char OutgoingBuffer[MaxOutgoingSize];
+    int IncomingBufferSize;
+    int OutgoingBufferSize;
 };
 
 template <typename DerivedType, typename _SerialType>

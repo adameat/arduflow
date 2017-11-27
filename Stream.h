@@ -47,20 +47,20 @@ public:
         static_cast<DerivedType*>(this)->send(arg);
     }
 
-	WriteStream& operator <<(const char* arg) {
-		write(arg);
-		return *this;
-	}
+    WriteStream& operator <<(const char* arg) {
+        write(arg);
+        return *this;
+    }
 
-	WriteStream& operator <<(double arg) {
-		write(arg);
-		return *this;
-	}
+    WriteStream& operator <<(double arg) {
+        write(arg);
+        return *this;
+    }
 
-	WriteStream& operator <<(Endl) {
-		write("\r\n");
-		return *this;
-	}
+    WriteStream& operator <<(Endl) {
+        write("\r\n");
+        return *this;
+    }
 };
 
 

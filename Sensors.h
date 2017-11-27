@@ -2,37 +2,37 @@
 namespace AW {
 
 struct TSensorValue {
-	StringBuf Name;
-	double Value;
+    StringBuf Name;
+    double Value;
 };
 
 struct TSensorSource {
-	StringBuf Name;
-	TTime Updated;
+    StringBuf Name;
+    TTime Updated;
 };
 
 template <size_t Count> struct TSensor : TSensorSource {
-	TSensorValue Values[Count];
+    TSensorValue Values[Count];
 };
 
 struct TEventSensorData : TBasicEvent<TEventSensorData> {
-	constexpr static TEventID EventID = 6; // TODO
-	const TSensorSource& Source;
-	const TSensorValue& Value;
+    constexpr static TEventID EventID = 6; // TODO
+    const TSensorSource& Source;
+    const TSensorValue& Value;
 
-	TEventSensorData(const TSensorSource& source, const TSensorValue& value)
-		: Source(source)
-		, Value(value) {}
+    TEventSensorData(const TSensorSource& source, const TSensorValue& value)
+        : Source(source)
+        , Value(value) {}
 };
 
 struct TEventSensorMessage : TBasicEvent<TEventSensorMessage> {
-	constexpr static TEventID EventID = 7; // TODO
-	const TSensorSource& Source;
-	String Message;
+    constexpr static TEventID EventID = 7; // TODO
+    const TSensorSource& Source;
+    String Message;
 
-	TEventSensorMessage(const TSensorSource& source, const String& message)
-		: Source(source)
-		, Message(message) {}
+    TEventSensorMessage(const TSensorSource& source, const String& message)
+        : Source(source)
+        , Message(message) {}
 };
 
 }
